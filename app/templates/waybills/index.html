@@ -1,0 +1,37 @@
+{% extends "table.html" %}
+{% block add_block %}
+    {% if current_user.is_admin %}
+        {{ wtf.quick_form(add_form,
+            form_type="horizontal",
+            horizontal_columns=('lg', 5, 7)) }}
+    {% endif %}
+{% endblock %}
+
+{% block table_content %}
+    <table class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Поставщик</th>
+            <th>Продукт</th>
+            <th>Количество</th>
+            <th>Приемщик</th>
+            <th>Дата</th>
+        </tr>
+        {% for row in data %}
+            <tr>
+                <td>{{ row.waybill_id }}</td>
+                <td>{{ row.vendor_label }}</td>
+                <td>{{ row.ingr_label }} ({{ row.unit_label}})</td>
+                <td>{{ row.waybill_val }}</td>
+                <td>{{ row.user_fullname }} ({{ row.user_id}})</td>
+                <td>{{ row.recd_at.date() }}</td>
+                {% if current_user.is_admin %}
+                <td>
+                    <a href="{{ url_for('waybills.edit', id=row.waybill_id) }}">Изменить</a>
+                    <a href="{{ url_for('waybills.delete', id=row.waybill_id) }}">Удалить</a>
+                </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+    {% endblock %}

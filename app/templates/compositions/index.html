@@ -1,0 +1,25 @@
+{% extends "table.html" %}
+{% block table_content %}
+    <table class="table table-striped">
+        <tr>
+            <th>Категория</th>
+            <th>Блюдо</th>
+            <th>Ингредиент</th>
+            <th>Количество</th>
+            <th>ЕИ</th>
+        </tr>
+        {% for row in data %}
+            <tr>
+                <td>{{ row.dish_category_label }}</td>
+                <td>{{ row.dish_label }}</td>
+                <td>{{ row.ingr_label }}</td>
+                <td>{{ row.comp_val }}</td>
+                <td>{{ row.unit_label }}</td>
+                <td>
+                    <a href="{{ url_for('compositions.edit', id=row.comp_id) }}">Изменить</a>
+                    <a href="{{ url_for('compositions.delete', id=row.comp_id) }}">Удалить</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endblock %}

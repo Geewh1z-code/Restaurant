@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block app_content %}
+    <h1>{{table_name}}</h1>
+    <div class="row">
+        <div class="col-md-3">
+            {% if add_form %}
+                {% block add_block %}
+                {{ wtf.quick_form(add_form,
+                    form_type="horizontal",
+                    horizontal_columns=('lg', 5, 7)) }}
+                {% endblock %}
+            {% endif %}
+            {% if add %}
+            <a href="{{ url_for(add)}}" class="btn btn-inline-success">Add</a>
+            {% endif %}
+        </div>
+        <div class="col-md-3">
+            {% if filter_form %}
+                {{ wtf.quick_form(filter_form,
+                    form_type="horizontal",
+                    horizontal_columns=('lg', 5, 7)) }}
+            {% endif %}
+        </div>
+        <div class="col-md-3">
+            {{ wtf.quick_form(query_form,
+                form_type="horizontal",
+                horizontal_columns=('lg', 5, 7)) }}
+        </div>
+    </div>
+    <br>
+    {% if data|length < 1 %}
+    <h4>Нет данных</h4>
+    {% else %}
+    {% block table_content %}{% endblock %}
+    {% endif %}
+{% endblock %}

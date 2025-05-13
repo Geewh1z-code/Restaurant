@@ -1,0 +1,19 @@
+{% extends "table.html" %}
+
+{% block table_content %}
+    <table class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Название</th>
+        </tr>
+        {% for row in data %}
+            <tr>
+                <td>{{ row.unit_id }}</td>
+                <td>{{ row.unit_label }}</td>
+                <td>
+                    <a href="{{ url_for('units.delete', id=row.unit_id) }}">Удалить</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endblock %}

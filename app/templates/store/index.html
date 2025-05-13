@@ -1,0 +1,20 @@
+{% extends "table.html" %}
+
+{% block table_content %}
+    <table class="table table-striped">
+        <tr>
+            <th>ID заиси</th>
+            <th>Продукт</th>
+            <th>Количество</th>
+            <th>Дата</th>
+        </tr>
+        {% for row in data %}
+            <tr>
+                <td>{{ row.store_id }}</td>
+                <td>{{ row.ingr_label }}</td>
+                <td>{{ row.store_val}} {{ row.unit_label }}</td>
+                <td>{{ row.counted_at }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endblock %}

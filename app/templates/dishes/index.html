@@ -1,0 +1,21 @@
+{% extends "table.html" %}
+{% block table_content %}
+    <table class="table table-striped">
+        <tr>
+            <th>ID Блюда</th>
+            <th>Название</th>
+            <th>Категория</th>
+        </tr>
+        {% for row in data %}
+            <tr>
+                <td>{{ row.dish_id }}</td>
+                <td>{{ row.dish_label }}</td>
+                <td>{{ row.dish_category_label }}</td>
+                <td>
+                    <a href="{{ url_for('dishes.delete', id=row.dish_id) }}">Удалить</a>
+                    <a href="{{ url_for('dishes.edit', id=row.dish_id) }}">Изменить</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endblock %}

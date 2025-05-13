@@ -1,0 +1,21 @@
+{% extends "table.html" %}
+{% block table_content %}
+    <table class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Название</th>
+            <th>ЕИ</th>
+        </tr>
+        {% for row in data %}
+            <tr>
+                <td>{{ row.ingr_id }}</td>
+                <td>{{ row.ingr_label }}</td>
+                <td>{{ row.unit_label }}</td>
+                <td>
+                    <a href="{{ url_for('ingredients.edit', id=row.ingr_id) }}">Изменить</a>
+                    <a href="{{ url_for('ingredients.delete', id=row.ingr_id) }}">Удалить</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endblock %}

@@ -1,0 +1,19 @@
+{% extends "table.html" %}
+
+{% block table_content %}
+    <table class="table table-striped">
+        <tr>
+            <th>ID Категории</th>
+            <th>Название</th>
+        </tr>
+        {% for row in data %}
+            <tr>
+                <td>{{ row.dish_category_id }}</td>
+                <td>{{ row.dish_category_label }}</td>
+                <td>
+                    <a href="{{ url_for('dish_ctg.delete', id=row.dish_category_id) }}">Удалить</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endblock %}

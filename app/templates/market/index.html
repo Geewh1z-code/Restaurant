@@ -1,0 +1,33 @@
+{% extends "table.html" %}
+
+{% block add_block %}
+    {% if current_user.is_admin %}
+        {{ wtf.quick_form(add_form,
+            form_type="horizontal",
+            horizontal_columns=('lg', 5, 7)) }}
+    {% endif %}
+{% endblock %}
+
+{% block table_content %}
+    <table class="table table-striped">
+        <tr>
+            <th>ПОставщик</th>
+            <th>Ингредиент</th>
+            <th>Цена</th>
+        </tr>
+        {% for row in data %}
+            <tr>
+                <td>{{ row.vendor_label }}</td>
+                <td>{{ row.ingr_label }} ({{ row.unit_label}})</td>
+                <td>{{ row.ingr_price }}</td>
+                <td>
+                    {% if current_user.is_admin %}
+                    <a href="{{ url_for('market.edit', vendor_id=row.vendor_id, ingr_id=row.ingr_id) }}">Изменить</a>
+                    <a href="{{ url_for('market.delete', vendor_id=row.vendor_id, ingr_id=row.ingr_id) }}">Удалить</a>
+                    {% endif %}
+                    <a href="{{ url_for('waybills.add', vendor_id=row.vendor_id, ingr_id=row.ingr_id) }}">Заказать</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endblock %}

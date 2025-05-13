@@ -1,0 +1,27 @@
+{% extends "table.html" %}
+{% block table_content %}
+    <table class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Категория</th>
+            <th>Блюдо</th>
+            <th>Цена</th>
+            <th>Дата</th>
+        </tr>
+        {% for row in data %}
+            <tr>
+                <td>{{ row.menu_id }}</td>
+                <td>{{ row.dish_category_label }}</td>
+                <td>{{ row.dish_label }}</td>
+                <td>{{ row.menu_price }}</td>
+                <td>{{ row.created_at }}</td>
+                {% if current_user.is_admin %}
+                <td>
+                    <a href="{{ url_for('menu.delete', id=row.menu_id) }}">Удалить</a>
+                    <a href="{{ url_for('menu.edit', id=row.menu_id) }}">Изменить</a>
+                </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+    {% endblock %}

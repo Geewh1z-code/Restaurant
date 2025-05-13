@@ -1,0 +1,20 @@
+{% extends "table.html" %}
+{% block table_content %}
+    <table class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Номер</th>
+            <th>Вместимость</th>
+        </tr>
+        {% for row in data %}
+            <tr>
+                <td>{{ row.place_id }}</td>
+                <td>Стол-{{ row.place_label }}</td>
+                <td>{{ row.place_capacity }} мест</td>
+                <td>
+                    <a href="{{ url_for('places.delete', id=row.place_id) }}">Удалить</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endblock %}

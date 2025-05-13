@@ -1,0 +1,27 @@
+{% extends "table.html" %}
+
+{% block table_content %}
+    <table class="table table-striped">
+        <tr>
+            <th>Логин</th>
+            <th>ФИО</th>
+            <th>Email</th>
+            <th>Должность</th>
+            <th>Дата регистрации</th>
+        </tr>
+        {% for row in data %}
+            <tr>
+                <td>{{ row.username }}</td>
+                <td>{{ row.user_fullname }}</td>
+                <td>{{ row.email }}</td>
+                <td>{{ row.roles }}</td>
+                <td>{{ row.created_at.date() }}</td>
+                <td>
+                    <a href="{{ url_for('admin.delete', id=row.id) }}">Удалить</a>
+                    <br>
+                    <a href="{{ url_for('admin.edit', id=row.id) }}">Изменить</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endblock %}

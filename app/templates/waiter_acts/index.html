@@ -1,0 +1,23 @@
+{% extends "table.html" %}
+
+{% block table_content %}
+    <table class="table table-striped">
+        <tr>
+            <th>ID акта</th>
+            <th>Стол</th>
+            <th>Официант</th>
+            <th>Дата</th>
+        </tr>
+        {% for row in data %}
+            <tr>
+                <td>{{ row.waiter_act_id }}</td>
+                <td>#{{ row.place_label }} ({{ row.place_capacity}} мест)</td>
+                <td>{{ row.user_fullname }} (id {{ row.user_id}})</td>
+                <td>{{ row.works_at}}</td>
+                <td>
+                    <a href="{{ url_for('waiter_acts.delete', id=row.waiter_act_id) }}">Удалить</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endblock %}

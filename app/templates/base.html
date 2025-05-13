@@ -1,0 +1,72 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}
+    {% if title %}{{ title }} - Рест{% else %}Ресторан{% endif %}
+{% endblock %}
+
+{% block styles %}
+    <link href="{{bootstrap_find_resource('css/bootstrap.css', cdn='bootstrap')}}" rel="stylesheet">
+    {% block tstyles %}{% endblock tstyles %}
+{% endblock styles %}
+
+{% block navbar %}
+    <nav class="navbar navbar-default" backgroundcolor="gray">
+        <div class="container">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav  navbar-nav ">
+                    {% if current_user.is_authenticated %}
+                    <li><a href="{{ url_for('store.index') }}">Склад</a></li>
+                    <li><a href="{{ url_for('menu.index') }}">Меню</a></li>
+                    {% if current_user.has_role('cook') %}
+                    <li><a href="{{ url_for('compositions.index') }}">Рецепт</a></li>
+                    {% endif %}
+                    {% if current_user.has_role('waiter') %}
+                    <li><a href="{{ url_for('waiter_acts.index') }}">Акты дежурств</a></li>
+                    <li><a href="{{ url_for('orders.index') }}">Заказы</a></li>
+                    {% endif %}
+                    <li><a href="{{ url_for('positions.index') }}">Позиции</a></li>
+                    {% if current_user.has_role('supplier') %}
+                    <li><a href="{{ url_for('market.index') }}">Поставки</a></li>
+                    <li><a href="{{ url_for('waybills.index') }}">Накладные</a></li>
+                    {% endif %}
+                    {% endif %}
+                    {% if current_user.is_admin %}
+
+                    <li><a href="{{ url_for('order_states.index') }}">Состояния</a></li>
+                    <li><a href="{{ url_for('dish_ctg.index') }}">Категории</a></li>
+                    <li><a href="{{ url_for('dishes.index') }}">Блюда</a></li>
+                    <li><a href="{{ url_for('places.index') }}">Столы</a></li>
+                    <li><a href="{{ url_for('units.index') }}">ЕИ</a></li>
+                    <li><a href="{{ url_for('ingredients.index') }}">Продукты</a></li>
+                    <li><a href="{{ url_for('vendors.index') }}">Поставщики</a></li>
+                    <li><a href="{{ url_for('admin.index') }}">Админ</a></li>
+                    {% endif %}
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+
+
+                    {% if current_user.is_anonymous %}
+                    <li><a href="{{ url_for('auth.login') }}">Вход</a></li>
+                    {% else %}
+                    <li><a href="{{ url_for('auth.logout') }}">Выход</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-info" role="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {% block app_content %}{% endblock %}
+    </div>
+{% endblock %}
+{% block scripts %}{% endblock %}

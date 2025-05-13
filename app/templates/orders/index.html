@@ -1,0 +1,40 @@
+{% extends "table.html" %}
+{% block table_content %}
+    <table class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Код</th>
+            <th>Состояние</th>
+            <th>Стол</th>
+            <th>Официант</th>
+            <th>Сумма</th>
+            <th>Дата</th>
+        </tr>
+        {% for row in data %}
+            <tr>
+                <td>{{ row.order_id }}</td>
+                <td>{{ row.order_code }}</td>
+                <td>{{ row.order_state_label }}</td>
+                <td>Стол {{ row.place_label }} ({{ row.place_capacity }} мест)</td>
+                <td>{{ row.user_fullname }} (id {{ row.user_id }})</td>
+                <td><b>
+                    {% if row.pos_sum and row.order_total==0 %}
+                    {{ row.pos_sum }}$
+                    {% else %}
+                    {{ row.order_total }}$
+                    {% endif %}
+                </b></td>
+                <td>{{ row.ordered_at }}</td>
+                <td>
+                    {% if current_user.is_admin %}
+                    <a href="{{ url_for('orders.delete', id=row.order_id) }}">Удалить</a>
+                    {% endif %}
+                    <a href="{{ url_for('orders.edit', id=row.order_id) }}">Изменить</a>
+                    {% if row.pos_sum and row.order_total==0 %}
+                        <a href="{{ url_for('orders.pay', id=row.order_id) }}">Оплатить</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endblock %}

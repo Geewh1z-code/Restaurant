@@ -1,0 +1,38 @@
+{% extends "table.html" %}
+{% block table_content %}
+    <table class="table table-striped">
+        <tr>
+            <th>ID заказа</th>
+            <th>ID пункта</th>
+            <th>Блюдо</th>
+            <th>Количество</th>
+            <th>Цена</th>
+            <th>Повар</th>
+        </tr>
+        {% for row in data %}
+            <tr>
+                <td>{{ row.order_id }}</td>
+                <td>{{ row.position_id }}</td>
+                <td>{{ row.dish_label }}</td>
+                <td>{{ row.position_val }}</td>
+                <td>${{ row.menu_price }}</td>
+                <td>{% if row.user_id %}
+                    Cook #{{ row.user_id }}
+                {% else %}
+                {% if current_user.has_role('cook') %}
+                    <a href="{{ url_for('positions.cook', id=row.position_id) }}">Приготовить</a>
+                {% else %}
+                 -
+                {% endif %}
+                {% endif %}
+                </td>
+                {% if current_user.is_admin %}
+                <td>
+                    <a href="{{ url_for('positions.edit', id=row.position_id) }}">Изменить</a>
+                    <a href="{{ url_for('positions.delete', id=row.position_id) }}">Удалить</a>
+                </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+    {% endblock %}
