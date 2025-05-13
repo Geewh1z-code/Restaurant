@@ -21,7 +21,7 @@ A Python-based application designed to streamline restaurant operations, includi
    ```
 3. **Install Dependencies**:
    ```bash
-   pip install -r requirements.txt
+   pip install -r libs.py
    ```
 4. **Run the Application**:
    ```bash
@@ -51,9 +51,6 @@ Contributions are welcome! To contribute:
 5. Open a Pull Request.
 
 Please ensure your code follows Python PEP 8 style guidelines and includes appropriate documentation.
-
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Contact
 For questions or feedback, reach out to the project maintainer:
